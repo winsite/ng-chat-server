@@ -11,4 +11,6 @@ const app = express.Router()
 	.use(bodyParser.json())
 	.use('/api', IoC.create('auth-router'));
 
+app.use(cors());
+
 module.exports = app;
