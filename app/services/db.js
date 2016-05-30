@@ -5,6 +5,8 @@ module.exports = function (config) {
 
 	db.users = new nedb({filename: path.join(config.db.path, '/users.nedb'), autoload: true});
 
+	db.invites = new nedb({filename: path.join(config.db.path + '/invites.nedb'), autoload: true});
+
 	return db;
 };
 

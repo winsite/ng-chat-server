@@ -8,10 +8,9 @@ IoC.use(IoC.dir('app/routers'));
 IoC.use(IoC.dir('app/services'));
 
 const app = express.Router()
+	.use(cors())
 	.use(bodyParser.urlencoded({extended: true}))
 	.use(bodyParser.json())
 	.use('/api', IoC.create('auth-router'));
-
-app.use(cors());
 
 module.exports = app;
