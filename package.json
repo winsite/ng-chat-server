@@ -1,0 +1,33 @@
+{
+  "name": "ng-chat-server",
+  "version": "1.0.0",
+  "description": "chat server",
+  "main": "app/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xjacka/ng-chat-server.git"
+  },
+  "keywords": [
+    "chat"
+  ],
+  "author": "xjacka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xjacka/ng-chat-server/issues"
+  },
+  "homepage": "https://github.com/xjacka/ng-chat-server#readme",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "electrolyte": "^0.2.4",
+    "express": "^4.13.4",
+    "jwt-simple": "^0.5.0",
+    "moment": "^2.13.0",
+    "nedb": "^1.8.0",
+    "path": "^0.12.7",
+    "request": "^2.72.0",
+    "satellizer": "^0.14.0"
+  }
+}
