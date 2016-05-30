@@ -7,8 +7,9 @@ module.exports = function() {
 		db: {
 			path: path.join(root, '/data/db')
 		},
-		GOOGLE_SECRET: '_94S6IGyg8D8111ozBBerjSO',
-		TOKEN_SECRET: 'iYZ8m3lvjjR1QkXTzT5Y6g5h4HkQjloo'
+		GOOGLE_SECRET: 'KgmsVWkZiHTe2padfnmym_TG',
+		TOKEN_SECRET: 'ASDFASasdfasDCQSREzADGvsdfhwq',
+		GITHUB_SECRET: 'e64f082819bae7850a7d9d2aab63ef6cb113b4be'
 	};
 
 	return config;
