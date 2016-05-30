@@ -75,7 +75,7 @@ module.exports = function(config, datastore) {
 
 
 				// Step 3b. Create a new user account or return an existing one.
-				datastore.users.findOne({ google: profile.sub }, function(err, existingUser) {
+				datastore.users.findOne({ github: profile.id }, function(err, existingUser) {
 					if (existingUser) {
 						return res.send({ token: createJWT(existingUser) });
 					}
