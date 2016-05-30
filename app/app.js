@@ -1,5 +1,6 @@
 const IoC = require('electrolyte'),
 	express = require('express'),
+	cors = require('cors'),
 	bodyParser = require('body-parser');
 
 IoC.use(IoC.dir('app'));
