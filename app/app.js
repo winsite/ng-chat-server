@@ -21,25 +21,40 @@ const http = require('http').Server(app),
 io.use(IoC.create('socket-service'));
 
 io.on('connection', function(socket) {
+	socket.emit('connected', {
+		date: new Date(),
+		user: socket.handshake.query.user
+	});
 	console.log('user connected');
 
 	var source = Rx.Observable.fromEvent(socket, "message")
 		.takeUntil(Rx.Observable.fromEvent(socket, "disconnect"));
 
+	var writingSource = Rx.Observable.fromEvent(socket, "writing").throttle(3000);
+	writingSource.subscribe(
+		function (message) {
+			socket.emit('stop writing', '');
+		}
+	);
+
 	var subscription = source.subscribe(
 		function (message) {
 			const response = {
-				message: message.text,
+				text: message.text,
 				date: new Date(),
 				user: socket.handshake.query.user
 			};
 			console.log(response);
-			socket.broadcast.emit(response);
+			socket.emit('message', response);
 		},
 		function (err) {
 			console.log('Error: %s', err);
 		},
 		function () {
+			socket.emit('disconnected', {
+				date: new Date(),
+				user: socket.handshake.query.user
+			});
 			console.log('user disconected');
 		});
 
