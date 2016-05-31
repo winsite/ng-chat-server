@@ -14,7 +14,6 @@ module.exports = function(config) {
 			payload = jwt.decode(token, config.TOKEN_SECRET);
 		}
 		catch (err) {
-			console.log('token error');
 			return next(new Error(err.message));
 		}
 
@@ -22,6 +21,7 @@ module.exports = function(config) {
 			return next(new Error('Token has expired'));
 		}
 
+		socket.handshake.query.user = payload.sub;
 		next();
 	}
 };

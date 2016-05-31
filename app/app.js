@@ -23,12 +23,18 @@ io.use(IoC.create('socket-service'));
 io.on('connection', function(socket) {
 	console.log('user connected');
 
-	var source = Rx.Observable.fromEvent(socket, "date")
+	var source = Rx.Observable.fromEvent(socket, "message")
 		.takeUntil(Rx.Observable.fromEvent(socket, "disconnect"));
 
 	var subscription = source.subscribe(
-		function (x) {
-			console.log(x);
+		function (message) {
+			const response = {
+				message: message.text,
+				date: new Date(),
+				user: socket.handshake.query.user
+			};
+			console.log(response);
+			socket.broadcast.emit(response);
 		},
 		function (err) {
 			console.log('Error: %s', err);

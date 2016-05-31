@@ -9,6 +9,13 @@ module.exports = function(secured, datastore) {
 		});
 	});
 
+	router.get('/users', secured, function(req, res, next) {
+		datastore.users.find({}, function(err, doc) {
+			if(err){return next(err);}
+			res.json(doc);
+		});
+	});
+
 	return router;
 };
 
