@@ -17,4 +17,4 @@ chatovací server
   * __connected__ - událost při připojení
   * __writing__ - událost při psaní
   * __message__ - událost při odeslání zprávy ```{ text: 'ahoj'} ```
-  * __disconected__ - událost při odpojení
+  * __disconnect__ - událost při odpojení
