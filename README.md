@@ -14,7 +14,7 @@ chatovací server
   * __writing__ - ```{ user: 'l1sUATJzjqd928LE' }```
 
 ## Události přijímané
-  * __connected__ - událost při připojení
+  * __connect__ - událost při připojení
   * __writing__ - událost při psaní
   * __message__ - událost při odeslání zprávy ```{ text: 'ahoj'} ```
   * __disconnect__ - událost při odpojení
