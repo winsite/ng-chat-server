@@ -11,8 +11,7 @@ chatovací server
   user: 'l1sUATJzjqd928LE' }```
   * __disconnected__ - vrací objekt uživatele, který se odhlásil ```{ date: Tue May 31 2016 14:19:29 GMT+0200 (CEST),
   user: 'ohu9jKJtacnXfBHZ' }```
-  * __writing__ - ```{ text: 'aaa',
-  user: 'l1sUATJzjqd928LE' }```
+  * __writing__ - ```{ user: 'l1sUATJzjqd928LE' }```
 
 ## Události přijímané
   * __connected__ - událost při připojení
