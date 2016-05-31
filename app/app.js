@@ -1,6 +1,7 @@
 const IoC = require('electrolyte'),
 	express = require('express'),
 	cors = require('cors'),
+    Rx = require('rx'),
 	bodyParser = require('body-parser');
 
 IoC.use(IoC.dir('app'));
@@ -22,13 +23,19 @@ io.use(IoC.create('socket-service'));
 io.on('connection', function(socket) {
 	console.log('user connected');
 
-	socket.on('disconnect', function(){
-		console.log('user disconnected');
-	});
+	var source = Rx.Observable.fromEvent(socket, "date")
+		.takeUntil(Rx.Observable.fromEvent(socket, "disconnect"));
 
-	socket.on('date', function(date){
-		console.log(date);
-	});
+	var subscription = source.subscribe(
+		function (x) {
+			console.log(x);
+		},
+		function (err) {
+			console.log('Error: %s', err);
+		},
+		function () {
+			console.log('user disconected');
+		});
 
 });
 
