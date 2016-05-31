@@ -55,7 +55,7 @@ io.on('connection', function(socket) {
 				user: socket.handshake.query.user
 			};
 			console.log(response);
-			io.emit('message ', response);
+			io.emit('message', response);
 		},
 		function (err) {
 			console.log('Error: %s', err);
