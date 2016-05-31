@@ -20,22 +20,36 @@ const http = require('http').Server(app),
 
 io.use(IoC.create('socket-service'));
 
+const userService = IoC.create('users-service');
+
 io.on('connection', function(socket) {
-	socket.emit('connected', {
+	const response = {
 		date: new Date(),
 		user: socket.handshake.query.user
-	});
-	console.log('user connected');
+	};
+	console.log('connected', response);
+	io.emit('connected', response);
+	userService.addUser(socket.handshake.query.user);
+	io.emit('users', userService.allUsers());
+	console.log(userService.allUsers());
+
+	var writingSource = Rx.Observable.fromEvent(socket, "writing").forEach(function() {
+		const response = {
+			text: message.text,
+			user: socket.handshake.query.user
+		};
+		console.log(response);
+		io.emit('writing', response);
+	}).throttle(3000)
+		.takeUntil(Rx.Observable.fromEvent(socket, "disconnect"));
+	writingSource.subscribe(
+		function (message) {
+			io.emit('stop writing', '');
+		}
+	);
 
 	var source = Rx.Observable.fromEvent(socket, "message")
 		.takeUntil(Rx.Observable.fromEvent(socket, "disconnect"));
-
-	var writingSource = Rx.Observable.fromEvent(socket, "writing").throttle(3000);
-	writingSource.subscribe(
-		function (message) {
-			socket.emit('stop writing', '');
-		}
-	);
 
 	var subscription = source.subscribe(
 		function (message) {
@@ -45,17 +59,19 @@ io.on('connection', function(socket) {
 				user: socket.handshake.query.user
 			};
 			console.log(response);
-			socket.emit('message', response);
+			io.emit('message', response);
 		},
 		function (err) {
 			console.log('Error: %s', err);
 		},
 		function () {
-			socket.emit('disconnected', {
+			const response = {
 				date: new Date(),
 				user: socket.handshake.query.user
-			});
-			console.log('user disconected');
+			};
+			console.log('disconected ', response);
+			userService.removeUser(socket.handshake.query.user);
+			io.emit('disconnected', response);
 		});
 
 });
