@@ -33,18 +33,14 @@ io.on('connection', function(socket) {
 	io.emit('users', userService.allUsers());
 	console.log(userService.allUsers());
 
-	var writingSource = Rx.Observable.fromEvent(socket, "writing").forEach(function() {
-		const response = {
-			text: message.text,
-			user: socket.handshake.query.user
-		};
-		console.log(response);
-		io.emit('writing', response);
-	}).throttle(3000)
-		.takeUntil(Rx.Observable.fromEvent(socket, "disconnect"));
+	var writingSource = Rx.Observable.fromEvent(socket, "writing");
 	writingSource.subscribe(
 		function (message) {
-			io.emit('stop writing', '');
+			const response = {
+				user: socket.handshake.query.user
+			};
+			console.log(response);
+			io.emit('writing', response);
 		}
 	);
 
