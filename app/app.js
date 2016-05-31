@@ -30,8 +30,8 @@ io.on('connection', function(socket) {
 	console.log('connected', response);
 	io.emit('connected', response);
 	userService.addUser(socket.handshake.query.user);
-	io.emit('users', userService.allUsers());
-	console.log(userService.allUsers());
+	socket.emit('users', userService.allUsers());
+	console.log('all users: ', userService.allUsers());
 
 	var writingSource = Rx.Observable.fromEvent(socket, "writing");
 	writingSource.subscribe(
@@ -39,7 +39,7 @@ io.on('connection', function(socket) {
 			const response = {
 				user: socket.handshake.query.user
 			};
-			console.log(response);
+			console.log('writing ', response);
 			io.emit('writing', response);
 		}
 	);
@@ -55,7 +55,7 @@ io.on('connection', function(socket) {
 				user: socket.handshake.query.user
 			};
 			console.log(response);
-			io.emit('message', response);
+			io.emit('message ', response);
 		},
 		function (err) {
 			console.log('Error: %s', err);
