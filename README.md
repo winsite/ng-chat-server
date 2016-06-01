@@ -4,7 +4,8 @@ chatovací server
 instalace:
 ``` npm install ```
 
-``` node app/index.js ```
+spuštění:
+``` npm start ```
 
 ## Události odesílané
 
