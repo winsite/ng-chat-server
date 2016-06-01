@@ -24,3 +24,12 @@ spuštění:
   * __writing__ - událost při psaní
   * __message__ - událost při odeslání zprávy ```{ text: 'ahoj'} ```
   * __disconnect__ - událost při odpojení
+
+## REST API
+ * __api/users__ - vrací všechny registrované uživatele
+ * __api/users/{ID}__ - vrací jednoho uživatele. Př: ``` {
+    "google": "1010428855912203354981",
+    "picture": "https://lh4.googleusercontent.com/-8LXVuqCBmFc/dfwe/AAAAAAAAACE/fdawerfasd-qY/photo.jpg?sz=200",
+    "displayName": "Jan Novak",
+    "_id": "4gXONmtBl6KjhciM"
+  } ```
