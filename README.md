@@ -1,6 +1,11 @@
 # ng-chat-server
 chatovací server
 
+instalace:
+``` npm install ```
+
+``` node app/index.js ```
+
 ## Události odesílané
 
   * __connected__ - vrací objekt uživatele, který se přihlásil  ```{ date: Tue May 31 2016 14:13:30 GMT+0200 (CEST),
