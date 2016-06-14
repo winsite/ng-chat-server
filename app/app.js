@@ -1,5 +1,6 @@
 const IoC = require('electrolyte'),
 	express = require('express'),
+	socketIO = require('socket.io'),
 	cors = require('cors'),
     Rx = require('rx'),
 	bodyParser = require('body-parser');
@@ -8,15 +9,19 @@ IoC.use(IoC.dir('app'));
 IoC.use(IoC.dir('app/routers'));
 IoC.use(IoC.dir('app/services'));
 
-const app = express.Router()
+const PORT = process.env.PORT || 8008;
+const server = express()
 	.use(cors())
 	.use(bodyParser.urlencoded({extended: true}))
 	.use(bodyParser.json())
 	.use('/api', IoC.create('users-router'))
-	.use('/api', IoC.create('auth-router'));
+	.use('/api', IoC.create('auth-router'))
+	.listen(PORT, function() {
+		console.log('listening port ' + PORT);
+	});
 
-const http = require('http').Server(app),
-	  io = require('socket.io')(http);
+
+const io = socketIO(server);
 
 io.use(IoC.create('socket-service'));
 
@@ -72,9 +77,4 @@ io.on('connection', function(socket) {
 
 });
 
-var port = process.env.PORT || 5000;
-http.listen(port, function() {
-	console.log('socket port ' + port);
-});
-
-module.exports = app;
+module.exports = server;
