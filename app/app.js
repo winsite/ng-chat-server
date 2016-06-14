@@ -72,8 +72,9 @@ io.on('connection', function(socket) {
 
 });
 
-http.listen(3000, function() {
-	console.log('socket port 3000');
+var port = process.env.PORT || 5000;
+http.listen(port, function() {
+	console.log('socket port ' + port);
 });
 
 module.exports = app;
