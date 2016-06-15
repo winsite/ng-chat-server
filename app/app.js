@@ -33,7 +33,7 @@ io.on('connection', function(socket) {
 		user: socket.handshake.query.user
 	};
 	console.log('connected', response);
-	io.emit('connected', response);
+	socket.broadcast.emit('connected', response);
 	userService.addUser(socket.handshake.query.user);
 	socket.emit('users', userService.allUsers());
 	console.log('all users: ', userService.allUsers());
